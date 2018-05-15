@@ -33,18 +33,61 @@ public class LinkedListLover {
 		}
 	}
 	/**
+	 * O(M+N)
+	 * @param l1
+	 * @param l2
+	 */
+	public static String checkMerge1 (LinkNode <Integer> l1, LinkNode <Integer> l2)
+	{
+		LinkNode<Integer> c1 = l1;
+		while (c1 != null)
+		{
+			LinkNode<Integer> c2 = l2;
+			while (c2 != null)
+			{
+				if (c1 == c2) return "merge at " + c1.getVal().toString();
+				c2 = c2.next;
+			}
+			c1 = c1.next;
+		}
+		return null;
+	}
+	public static void checkMerge2 (LinkNode <Integer> l1, LinkNode <Integer> l2)
+	{
+		
+	}
+	public static void print (LinkNode <Integer> ln) {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (;;) {
+            sb.append(ln.getVal());
+            if (ln.next == null)
+            {
+            	sb.append(']');
+            	System.out.println(sb);
+                return;
+            }
+            ln = ln.next;
+            sb.append(',').append(' ');
+        }
+	}
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		LinkedList<Integer> ll = new LinkedList<Integer> ();
-		ll.add(1);
-		ll.add(2);
-		ll.add(3);
-		ll.add(4);
-		ll.add(5);
-		ll.add(6);
-		ll.add(7);
-		reverseSecondHalf2 (ll);
+		LinkNode <Integer> h1 = new LinkNode <> (7);
+		LinkNode <Integer> h2 = new LinkNode <> (2);
+		LinkNode<Integer> t1 = h1.add(new LinkNode <> (5));
+		t1 = t1.add(new LinkNode <> (3));
+		LinkNode<Integer> t2 = h2.add(new LinkNode <> (4));
+		LinkNode <Integer> cross = new LinkNode <> (8);
+		t1.add(cross);
+		t2 = t2.add(cross);
+		t2 = t2.add(new LinkNode <> (6));
+		t2.add(new LinkNode <> (1));
+		print(h1);
+		print(h2);
+		System.out.println(checkMerge1 (h1, h2));
 	}
 
 }
