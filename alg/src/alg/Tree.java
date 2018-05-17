@@ -111,14 +111,14 @@ public class Tree
 {
 	/**
 	 * 					10
-	 * 				 /	     \
-	 * 			   3		  18
-	 *      	/	\		/    \
-	 *    	  2		 4	   13      21
-	 *    			  \
+	 * 				 /	    \
+	 * 			   3		     18
+	 *      	     /	\	    /   \
+	 *    	   2		 4	  13     21
+	 *    			   \
 	 *    				9
-	 *    			 /	  \
-	 *    		   8	   9
+	 *    			  /	  \
+	 *    		     8	   9
 	 * @param args
 	 */
 	public static void main (String [] args)

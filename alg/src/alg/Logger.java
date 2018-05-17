@@ -11,7 +11,14 @@ import java.util.Collection;
  *
  */
 public class Logger {
-
+	private static String toString (Object o)
+	{
+		if (o instanceof int [])
+		{
+			return Arrays.toString((int [])o);
+		}
+		else return o.toString();
+	}
 	public static void log (String msg, Object ... args)
 	{
 		StringBuilder sb = new StringBuilder (msg.length());
@@ -21,7 +28,7 @@ public class Logger {
 		while ((idx = msg.indexOf("{}", idx)) >= 0 && i < args.length)
 		{
 			sb.append(msg, start, idx);
-			sb.append(args [i++].toString());
+			sb.append(toString (args [i++]));
 			start = idx + 2;
 			idx ++;
 		}

@@ -4,8 +4,10 @@
 package alg;
 
 import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ak
@@ -33,28 +35,62 @@ public class LinkedListLover {
 		}
 	}
 	/**
-	 * O(M+N)
+	 * O(M*N)
 	 * @param l1
 	 * @param l2
 	 */
 	public static String checkMerge1 (LinkNode <Integer> l1, LinkNode <Integer> l2)
 	{
+		int counter = 0;
 		LinkNode<Integer> c1 = l1;
 		while (c1 != null)
 		{
 			LinkNode<Integer> c2 = l2;
 			while (c2 != null)
 			{
-				if (c1 == c2) return "merge at " + c1.getVal().toString();
+				counter ++;
+				if (c1 == c2)
+				{
+					System.out.println("count: " + counter);
+					return "merge at " + c1.getVal().toString();
+				}
 				c2 = c2.next;
 			}
 			c1 = c1.next;
 		}
 		return null;
 	}
-	public static void checkMerge2 (LinkNode <Integer> l1, LinkNode <Integer> l2)
+	/**
+	 * O(M+N) 
+	 */
+	public static String checkMerge2 (LinkNode <Integer> l1, LinkNode <Integer> l2)
 	{
-		
+		int counter = 0;
+		Map <LinkNode <Integer>, LinkNode <Integer>> map = new IdentityHashMap<>();
+		LinkNode<Integer> c1 = l1;
+		while (c1 != null)
+		{
+			counter ++;
+			if (map.put(c1, c1) != null)
+			{
+				System.out.println("count: " + counter);
+				return "merge at " + c1.getVal().toString();
+			}
+			c1 = c1.next;
+		}
+
+		LinkNode<Integer> c2 = l2;
+		while (c2 != null)
+		{
+			counter ++;
+			if (map.put(c2, c2) != null)
+			{
+				System.out.println("count: " + counter);
+				return "merge at " + c2.getVal().toString();
+			}
+			c2 = c2.next;
+		}
+		return null;
 	}
 	public static void print (LinkNode <Integer> ln) {
         StringBuilder sb = new StringBuilder();
@@ -88,6 +124,7 @@ public class LinkedListLover {
 		print(h1);
 		print(h2);
 		System.out.println(checkMerge1 (h1, h2));
+		System.out.println(checkMerge2 (h1, h2));
 	}
 
 }

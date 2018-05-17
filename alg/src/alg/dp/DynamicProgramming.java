@@ -3,6 +3,8 @@
  */
 package alg.dp;
 
+import java.util.Arrays;
+
 import alg.Logger;
 
 /**
@@ -11,6 +13,35 @@ import alg.Logger;
  */
 public class DynamicProgramming
 {
+	/**
+	 * use least coins to add up to sum
+	 * @param sum
+	 * @return
+	 */
+	public static int leastCoin (int sum, int [] coins)
+	{
+		Arrays.sort(coins);
+		int n = coins.length - 1;
+		int total = 0;
+		int count = 0;
+		int cost = 0;
+		while (n >= 0 && (total + coins [n]) != sum)
+		{
+			if (total + coins [n] > sum)
+			{
+				cost ++;
+				n --;
+			}
+			else if (total + coins [n] <= sum)
+			{
+				cost ++;
+				total += coins [n];
+			}
+			count ++;
+		}
+		System.out.printf("sum %d, count %d, cost %d", sum, count, cost);
+		return count;
+	}
 	public static int [] [] longestCommonSequence (char [] a, char [] b)
 	{
 		int [] [] matrix = new int [a.length + 1] [b.length + 1];
@@ -44,6 +75,29 @@ public class DynamicProgramming
         }
         return max;
     }
+	
+	public static int longestPalindrome(String s) {
+		int n = s.length();
+		boolean[][] pal = new boolean[n][n];
+		// pal[i][j] 表示s[i...j]是否是回文串
+		int maxLen = 0;
+		int time = 0;
+		for (int i = 0; i < n; i++) {
+			int j = i;
+			while (j >= 0) {
+				if (s.charAt(j) == s.charAt(i) && (i - j < 2 || pal[j + 1][i - 1])) {
+					pal[j][i] = true;
+					maxLen = Math.max(maxLen, i - j + 1);
+				}
+				j--;
+				time ++;
+			}
+		}
+		Logger.log("time: {}", time);
+		return maxLen;
+	}
+
+
 	/**
 	 * @param args
 	 */
@@ -52,6 +106,7 @@ public class DynamicProgramming
 		Logger.log (longestCommonSequence(
 			"abcdaf".toCharArray (), "acbcf".toCharArray ()));
 		Logger.log(maxSubArray(new int [] {1, -1, -2, -9, 8, 3, -1, 2, 5}));
+		Logger.log(longestPalindrome ("abcdcdbadbabdab"));
+		Logger.log(leastCoin (50, new int [] {1, 2, 5, 10, 50}));
 	}
-
 }

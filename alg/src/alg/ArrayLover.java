@@ -259,6 +259,47 @@ public class ArrayLover
         }
         return max;
     }
+
+    /**
+     * <h2>merge sort</h2>
+     * <p>buffer array is a must</p>
+     * @param from
+     * @param start
+     * @param end
+     * @param to
+     */
+	public static int sort(int from[], int start, int end, int to[]) {
+		int time = 0;
+		if (end - start > 1)
+		{//no need to sort single element
+			// split the run longer than 1 item into halves
+			int mid = (start + end) / 2;
+			// alternately sort data between original and target array
+			sort(to, start, mid, from);
+			sort(to, mid, end, from);
+			// merge the resulting runs from array B[] into A[]
+			time += merge(from, start, mid, end, to);
+		}
+		return time;
+	}
+
+	private static int merge(int from[], int start, int mid, int end, int to[]) {
+		int time = 0;
+		int i = start, j = mid;
+		// While there are elements in the left or right runs...
+		for (int k = start; k < end; k++) {
+			// If left run head exists and is <= existing right run head.
+			if (i < mid && (j >= end || from[i] <= from[j])) {
+				to[k] = from[i];
+				i = i + 1;
+			} else {
+				to[k] = from[j];
+				j = j + 1;
+			}
+			time ++;
+		}
+		return time;
+	}
 	
 	/**
 	 * @param args
@@ -277,7 +318,11 @@ public class ArrayLover
 		//Logger.log (arr);
 		
 		//Logger.log("good: {}", stockMaximize (new int [] {1,3,1,2}, 4));
-		Logger.log ("{}", maxSubArray (new int [] {1,2}));
+		//Logger.log ("{}", maxSubArray (new int [] {1,2}));
+		int [] arr = new int [] {10, 7, 1, 9, 2, 11, 5, 3, 8};//
+		int [] result = Arrays.copyOf(arr, arr.length);
+		Logger.log("O(NlogN): {}, N={}", sort (result, 0, arr.length, arr), arr.length);
+		Logger.log (arr);
 	}
 
 }
