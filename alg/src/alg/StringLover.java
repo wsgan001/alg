@@ -95,7 +95,34 @@ public class StringLover
         }
         return maxlen;
     }
-    
+    /**
+     * O(N!)
+     * @param source
+     * @param key
+     * @return
+     */
+    public static int indexOf (String source, String key)
+    {
+    	//deal with extreme
+    	if (source == null || key == null)
+    	{
+    		
+    	}
+    	
+    	char [] src = source.toCharArray();
+    	char [] k = key.toCharArray();
+    	int i = 0;
+    	for (;i < src.length; i ++)
+    	{
+        	int j = 0;
+    		for (;j < k.length && src[i+j] == k[j] && (i + j) < src.length; j ++) {}
+    		if (j == k.length)
+    		{
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
 	public static void main (String [] args)
 	{
 		/*String s = "1234567890qwertyuiopasdfghjklzxcvbnm,.2";
@@ -113,5 +140,7 @@ public class StringLover
 		System.out.println (j - i);
 		System.out.println (k - j );*/
 		System.out.println(lengthOfLongestSubstring2 ("abcabcbb"));
+		String s = "System.currentTimeMillis ()";
+		System.out.printf ("%d %d", s.indexOf("rren"), indexOf (s, "rren"));
 	}
 }
