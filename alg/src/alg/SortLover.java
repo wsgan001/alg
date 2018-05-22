@@ -31,7 +31,7 @@ public class SortLover {
 			}
 			if (swap == 0)
 			{
-				//break;
+				break;
 			}
 		}
 		System.out.printf("counter: %d\n", counter);
@@ -42,37 +42,30 @@ public class SortLover {
 		int counter = 0;
 		if (end > start)
 		{
-			int p = arr [end];
-			int i = 0;
-			int hi = end;
-			for (; i< end; i ++)
+			//pick leftmost as pivot
+			int p = arr [start];
+			//pick a start point other than pivot
+			//find valid element in order (defined by comparison)
+			//larger than (right to left) or less than (left to right)
+			int i = end;
+			//next valid element position, default +1 (out of range) to distinguish miss hit
+			int pos = end + 1;
+			//define 
+			for (; i >= start; i --)
 			{
 				counter ++;
-				if (arr [i] > p)
+				//this comparison decides order of the iteration
+				//NOTE: we're deciding position of the pivot
+				//so anything other than it should be moved (include equals)
+				if (arr [i] >= p)
 				{
-					int j = hi - 1;
-					for (; j > i; j --)
-					{
-						counter ++;
-						if (arr [j] <= p)
-						{
-							int tmp = arr [i];
-							arr [i] = arr [j];
-							arr [j] = tmp;
-							hi --;
-							break;
-						}
-					}
-					if (arr [i] > p)
-					{
-						arr [end] = arr [i];
-						arr [i] = p;
-						break;
-					}
+					pos --;
+					int tmp = arr [pos];
+					arr [pos] = arr [i];
+					arr [i] = tmp;
 				}
 			}
-			System.out.println(Arrays.toString(arr));
-			counter += quickSort (arr, start, i - 1) + quickSort (arr, i + 1, end);
+			counter += quickSort (arr, start, pos - 1) + quickSort (arr, pos + 1, end);
 		}
 		return counter;
 	}
@@ -80,8 +73,9 @@ public class SortLover {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int [] a1 = new int [] {3, 12, 55, 33, 21, 9, 7, 2};
-		int [] a2 = new int [] {3, 12, 55, 33, 21, 9, 7, 2};
+		//{19, 17, 13, 10, 8, 6, 4, 2, 7, 9, 21, 33, 55, 12, 3}
+		int [] a1 = new int [] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+		int [] a2 = new int [] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 		int c = quickSort (a1, 0, a1.length - 1);
 		System.out.printf (" quick sort cost %d\n", c);
 		System.out.println(Arrays.toString(a1));
